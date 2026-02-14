@@ -1,12 +1,13 @@
 #envelope {
+  /* responsive envelope width */
+  --env-w: clamp(240px, 86vw, 360px);
   position: relative;
-  width: 280px;
-  height: 180px;
+  width: var(--env-w);
+  aspect-ratio: 280 / 180;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  margin-left: auto;
-  margin-right: auto;
-  top: 150px;
+  margin: 0 auto;
+  top: 8vh;
   background-color: #d9534f; /* Warm romantic red */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
@@ -19,21 +20,19 @@
 }
 
 .flap {
-  border-left: 140px solid transparent;
-  border-right: 140px solid transparent;
-  border-bottom: 82px solid transparent;
-  /* a little smaller */
-  border-top: 98px solid #d9534f; /* Same romantic red */
-  /* a little larger */
+  border-left: calc(var(--env-w) / 2) solid transparent;
+  border-right: calc(var(--env-w) / 2) solid transparent;
+  border-bottom: calc(var(--env-w) * 0.293) solid transparent; /* 82/280 */
+  border-top: calc(var(--env-w) * 0.35) solid #d9534f; /* 98/280 */
   transform-origin: top;
   pointer-events: none;
 }
 
 .pocket {
-  border-left: 140px solid #f5a3a2; /* Soft pinkish red for the pocket */
-  border-right: 140px solid #f5a3a2;
-  border-bottom: 90px solid #ff6f61; /* Lighter romantic red */
-  border-top: 90px solid transparent;
+  border-left: calc(var(--env-w) / 2) solid #f5a3a2; /* Soft pinkish red for the pocket */
+  border-right: calc(var(--env-w) / 2) solid #f5a3a2;
+  border-bottom: calc(var(--env-w) * 0.321) solid #ff6f61; /* 90/280 */
+  border-top: calc(var(--env-w) * 0.321) solid transparent;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
@@ -42,16 +41,15 @@
   position: relative;
   background-color: #fff;
   width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  max-height: 80%;
+  margin: 0 auto;
+  max-height: min(60vh, calc(var(--env-w) * 0.6));
   top: 5%;
   border-radius: 6px;
   box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
   font-family: "Dancing Script", cursive;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 18px;
   box-sizing: border-box;
   overflow: auto;
@@ -61,37 +59,59 @@
   content: "";
   position: absolute;
   top: 0;
-  .words {
-    position: static;
-    left: auto;
-    width: 100%;
-    height: auto;
-    background-color: transparent;
-    margin: 6px 0;
-    color: #333;
-    line-height: 1.2;
-  }
-  .words.line1 {
-    font-size: 0.9rem;
-    width: 100%;
-    text-transform: none;
-    text-align: left;
-  }
-  .words.line2,
-  .words.line3,
-  .words.line4 {
-    font-size: 1.05rem;
-    text-align: center;
-    word-wrap: break-word;
-  }
-  font-size: 1.1rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.words {
+  position: static;
+  left: auto;
+  width: 100%;
+  height: auto;
+  background-color: transparent;
+  margin: 6px 0;
+  color: #333;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+.words.line1 {
+  font-size: 0.95rem;
+  width: 100%;
+  text-transform: none;
+  text-align: left;
+}
+.words.line2,
+.words.line3,
+.words.line4 {
+  font-size: 1.05rem;
   text-align: center;
 }
 
 .words.line4 {
-  top: 70%;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   text-align: center;
+}
+
+/* Buttons and mobile tweaks */
+.reset button,
+#bloom {
+  min-width: 140px;
+  padding: 12px 18px;
+  font-size: 16px;
+}
+
+@media (max-width: 420px) {
+  #envelope { --env-w: 86vw; top: 6vh; }
+  .letter { padding: 14px; max-height: 55vh; }
+  .reset button, #bloom { min-width: 120px; padding: 14px 16px; font-size: 15px; }
+  .words.line1 { font-size: 1rem; }
+  .words.line2, .words.line3, .words.line4 { font-size: 1rem; }
+}
+
+@media (min-width: 1024px) {
+  #envelope { --env-w: 360px; }
+  .letter { max-height: calc(var(--env-w) * 0.6); }
 }
 
 .open .flap {
