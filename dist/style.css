@@ -16,6 +16,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   background-color: var(--dark-color);
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;
   overflow: hidden;
   perspective: 1000px;
 }
